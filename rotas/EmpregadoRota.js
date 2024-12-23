@@ -6,7 +6,7 @@ const app = express.Router();
 
 //Usando asynch, para permitir tempos de espera e eventuais errors.
 
-// listar todos os empregads
+// listar todos os empregads => Funciona no postman
 app.get("/empregados", async (req, res) => {
     try {
       const empregados = await Empregado.find();
@@ -16,25 +16,12 @@ app.get("/empregados", async (req, res) => {
     }
   });
   
-  // listar empregados por relacao a matrícula
-  app.get("/empregados/:matricula", async (req, res) => {
-    const { matricula } = req.params;
-    try {
-      const empregados = await Empregado.find({ matricula: matricula });
-      if (empregados.length > 0) {
-        res.status(200).json(empregados);
-      } else {
-        res.status(404).send("Nenhum empregado associado a esse veiculo");
-      }
-    } catch (error) {
-      res.status(500).send("Erro");
-    }
-  });
-  
-  // Criacao de um novo empregado com post
+  // Criacao de um novo empregado com post => Nao funciona !!! good god.
   app.post("/empregados", async (req, res) => {
-    const { nome, matriculaCarro, funcao } = req.body;
-    const novoEmpregado = new Empregado({ nome, matriculaCarro, funcao });
+    
+    const { nome, apelido} = req.body;
+
+    const novoEmpregado = new Empregado({ nome, apelido });
     try {
       await novoEmpregado.save();
       res.status(201).send("Novo empregado ");

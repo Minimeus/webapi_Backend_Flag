@@ -12,10 +12,6 @@ const mongoose = require('mongoose');
             type: String, 
             required: true 
         },
-        matricula: { 
-            type: String, 
-            required: true 
-        },
     }, 
     
     { timestamps: true }); /* vai criando por default, sem ter que ser inserido */

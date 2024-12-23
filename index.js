@@ -1,22 +1,25 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
+const RotaEmpregados = require("./rotas/EmpregadoRota");
+const RotaRegistros =  require("./rotas/VeiculoEmpregadoRota");
 
 const app = express();
 const port = 8080;
-
-const RotaEmpregados = require("./rotas/EmpregadoRota");
-
-mongoose.connect("mongodb://localhost:27017/VeiculoEmpregado")
-  .then(() => console.log("Conexao reussite!"))
-
-  //ele diz me que ha um erro mas conecta-se mesmo assim... qual é  o erro...
-  .catch((error) => console.error(`Erro na conexão: ${error}`));
-  //agora funcionou....... o meu codigo devia estar mal, e simplesmente a enviar o console log
-
-
 app.use(express.json());
+
+  mongoose.connect('mongodb://localhost:27017/WebAPI')
+  .then(() => {
+      //ele diz me que ha um erro mas conecta-se mesmo assim... qual é  o erro...
+        console.log("Conexao reussite!");
+    }).catch((error) => {
+        //agora funcionou....... o meu codigo devia estar mal, e simplesmente a enviar o console log
+        console.error(`Erro na conexão: ${error}`);
+    });
+
+
 app.use(RotaEmpregados);
+app.use(RotaRegistros);
 
 //Log no middleware como na aula
 app.use((req, res, next) => {

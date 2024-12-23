@@ -2,7 +2,7 @@ const express = require("express");
 
 const Empregado = require("../modelos/Empregado");
 
-const router = express.Router();
+const app = express.Router();
 
 //Usando asynch, para permitir tempos de espera e eventuais errors.
 
@@ -57,3 +57,5 @@ app.get("/empregados", async (req, res) => {
       res.status(400).send("Erro ao atualizar empregado");
     }
   });
+
+  module.exports = app; 
